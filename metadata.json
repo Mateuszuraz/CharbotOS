@@ -1,0 +1,5 @@
+{
+  "name": "Charbot OS",
+  "description": "A local-first, privacy-focused AI chat interface with a 'Paper & Ink' aesthetic, designed for Ollama and external LLM APIs.",
+  "requestFramePermissions": []
+}

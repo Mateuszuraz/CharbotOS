@@ -1,0 +1,16 @@
+[Unit]
+Description=Charbot OS AI Server
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=__SSD_PATH__
+ExecStart=__SSD_PATH__/start-rpi.sh
+Restart=on-failure
+RestartSec=5
+User=__USER__
+Environment=BIND_HOST=0.0.0.0
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,19 @@
+[Unit]
+Description=ngrok tunnel for Charbot OS
+Documentation=https://ngrok.com/docs
+After=network-online.target charbot-os.service
+Wants=network-online.target
+BindsTo=charbot-os.service
+
+[Service]
+Type=simple
+User=__USER__
+ExecStart=/usr/bin/ngrok start charbot --config __HOME__/.config/ngrok/ngrok.yml --log stdout
+Restart=on-failure
+RestartSec=15
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ngrok
+
+[Install]
+WantedBy=multi-user.target

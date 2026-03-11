@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Enable class-based dark mode with .dark on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-serif: "EB Garamond", serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Inter", sans-serif;
+
+  --color-bg-app: #F9F7F1;
+  --color-glass-border: #1A1A1A;
+  --color-glass-surface: rgba(255, 255, 255, 0.9);
+  --color-accent-primary: #1A1A1A;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #4A4A4A;
+
+  /* Hard shadow color — adapts to dark mode */
+  --color-shadow-hard: #1A1A1A;
+}
+
+@layer base {
+  /* Dark mode overrides */
+  .dark {
+    --color-bg-app: #191919;
+    --color-glass-border: #3A3A3A;
+    --color-glass-surface: rgba(30, 30, 30, 0.9);
+    --color-accent-primary: #F9F7F1;
+    --color-text-primary: #F9F7F1;
+    --color-text-secondary: #888888;
+    --color-shadow-hard: #F9F7F1;
+  }
+
+  .dark ::-webkit-scrollbar-track { background: #191919; border-left: 1px solid #3A3A3A; }
+  .dark ::-webkit-scrollbar-thumb { background: #F9F7F1; }
+  .dark ::-webkit-scrollbar-thumb:hover { background: #ccc; }
+
+  body {
+    @apply bg-bg-app text-text-primary font-serif antialiased;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    cursor: none;
+  }
+
+  /* Custom cursor — hide system cursor globally */
+  *, *::before, *::after { cursor: none !important; }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F9F7F1;
+    border-left: 1px solid #1A1A1A;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1A1A1A;
+    border: 1px solid #F9F7F1;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #333;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-bg-app border-2 border-glass-border shadow-[4px_4px_0px_#1A1A1A];
+  }
+
+  .glass-input {
+    @apply bg-transparent border-b-2 border-glass-border text-text-primary placeholder:text-text-secondary/50 focus:border-accent-primary focus:ring-0 transition-all duration-200 font-mono rounded-none px-0;
+  }
+
+  .line-art-card {
+    @apply bg-bg-app border-2 border-glass-border rounded-lg shadow-[4px_4px_0px_#1A1A1A];
+  }
+
+  /* Ink-bleed organic border-radius for chat bubbles */
+  .ink-bubble-bot {
+    border-radius: 0.5rem 1.5rem 1.25rem 0.25rem / 1.25rem 0.25rem 1.5rem 0.5rem;
+  }
+
+  .ink-bubble-user {
+    border-radius: 1.5rem 0.5rem 0.25rem 1.25rem / 0.25rem 1.25rem 0.5rem 1.5rem;
+  }
+
+  /* Ink-bleed hover lift for session cards */
+  .bleed-hover-effect {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .bleed-hover-effect:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px 0px var(--color-glass-border) !important;
+  }
+}

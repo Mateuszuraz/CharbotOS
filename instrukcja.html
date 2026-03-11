@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Charbot OS — Instrukcja Obsługi</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ─── RESET ─────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Space Grotesk',sans-serif;
+  background:#f2f0eb;
+  color:#121212;
+  font-size:16px;
+  line-height:1.6;
+  background-image:linear-gradient(rgba(18,18,18,0.055) 1px,transparent 1px);
+  background-size:100% 28px;
+  min-height:100vh;
+}
+
+/* ─── VARIABLES ─────────────────────────────────────────── */
+:root{
+  --ink:#121212;
+  --paper:#f2f0eb;
+  --paper-dark:#e8e5de;
+  --paper-mid:#dedad1;
+  --hard:5px 5px 0 0 #121212;
+  --hard-sm:3px 3px 0 0 #121212;
+  --hard-lg:8px 8px 0 0 #121212;
+}
+
+/* ─── TYPOGRAPHY ─────────────────────────────────────────── */
+h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;line-height:1.08;letter-spacing:-0.02em}
+h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;line-height:1.15;letter-spacing:-0.01em}
+h3{font-size:1.1rem;font-weight:700;letter-spacing:-0.005em}
+p{line-height:1.65}
+a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+a:hover{opacity:.7}
+code,pre,.mono{font-family:'JetBrains Mono',monospace}
+code{font-size:.82em;background:rgba(18,18,18,.07);padding:2px 6px;border:1px solid rgba(18,18,18,.12)}
+pre{background:var(--ink);color:var(--paper);padding:1.4rem 1.6rem;font-size:.8rem;line-height:1.7;overflow-x:auto;border:2px solid var(--ink);box-shadow:var(--hard-sm)}
+pre code{background:none;border:none;padding:0;color:inherit;font-size:inherit}
+
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+.container{max-width:860px;margin:0 auto;padding:0 24px}
+.container-wide{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* ─── NAV ────────────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(242,240,235,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:2px solid var(--ink);
+  padding:0 24px;
+}
+.nav-inner{
+  max-width:860px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;gap:16px;
+}
+.nav-logo{
+  font-size:.78rem;font-weight:700;font-family:'JetBrains Mono',monospace;
+  text-transform:uppercase;letter-spacing:.12em;text-decoration:none;color:var(--ink);
+  display:flex;align-items:center;gap:8px;
+}
+.nav-logo-dot{width:8px;height:8px;background:var(--ink);flex-shrink:0}
+.nav-links{display:flex;gap:0;overflow-x:auto}
+.nav-links a{
+  font-size:.7rem;font-weight:600;font-family:'JetBrains Mono',monospace;
+  text-transform:uppercase;letter-spacing:.1em;text-decoration:none;color:var(--ink);
+  padding:6px 12px;border:1px solid transparent;white-space:nowrap;
+  transition:border-color .15s,background .15s;
+}
+.nav-links a:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.nav-version{
+  font-size:.65rem;font-family:'JetBrains Mono',monospace;font-weight:600;
+  text-transform:uppercase;letter-spacing:.12em;
+  background:var(--ink);color:var(--paper);padding:3px 8px;flex-shrink:0;
+}
+
+/* ─── HERO ───────────────────────────────────────────────── */
+.hero{
+  border-bottom:2px solid var(--ink);
+  padding:72px 24px 64px;
+  position:relative;overflow:hidden;
+}
+.hero-inner{max-width:860px;margin:0 auto}
+.hero-tag{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.15em;
+  background:var(--ink);color:var(--paper);
+  padding:3px 10px;margin-bottom:24px;
+}
+.hero h1{max-width:720px;margin-bottom:20px}
+.hero h1 span{
+  display:inline-block;
+  border-bottom:4px solid var(--ink);
+}
+.hero-lead{
+  font-size:1.1rem;color:rgba(18,18,18,.65);max-width:560px;margin-bottom:36px;line-height:1.6;
+}
+.hero-lead strong{color:var(--ink);font-weight:700}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;
+  padding:11px 22px;border:2px solid var(--ink);text-decoration:none;
+  cursor:pointer;transition:transform .12s,box-shadow .12s,background .12s,color .12s;
+  box-shadow:var(--hard-sm);background:var(--paper);color:var(--ink);
+}
+.btn:hover{transform:translateY(-2px) translateX(-1px);box-shadow:var(--hard);opacity:1}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn-primary:hover{background:#2a2a2a}
+.btn-sm{font-size:.7rem;padding:7px 14px}
+.hero-stats{
+  display:flex;gap:0;flex-wrap:wrap;margin-top:52px;
+  border-top:2px solid var(--ink);padding-top:28px;
+}
+.hero-stat{
+  flex:1;min-width:140px;padding:12px 20px 12px 0;
+  border-right:1px solid rgba(18,18,18,.15);
+}
+.hero-stat:last-child{border-right:none}
+.hero-stat-num{font-size:1.7rem;font-weight:800;line-height:1}
+.hero-stat-label{font-size:.65rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.12em;color:rgba(18,18,18,.5);margin-top:4px}
+
+/* ─── TOC ─────────────────────────────────────────────────── */
+.toc{
+  border-bottom:2px solid var(--ink);
+  padding:48px 24px;background:var(--paper-dark);
+}
+.toc-inner{max-width:860px;margin:0 auto}
+.toc-label{
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.15em;color:rgba(18,18,18,.45);
+  margin-bottom:20px;
+}
+.toc-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0;
+  border:2px solid var(--ink);
+}
+.toc-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:12px 14px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  text-decoration:none;color:var(--ink);
+  transition:background .12s;
+}
+.toc-item:hover{background:var(--ink);color:var(--paper)}
+.toc-num{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:600;
+  opacity:.35;flex-shrink:0;padding-top:2px;
+}
+.toc-title{font-size:.8rem;font-weight:600;line-height:1.3}
+
+/* ─── SECTIONS ───────────────────────────────────────────── */
+.section{
+  border-bottom:2px solid var(--ink);
+  padding:64px 24px;
+}
+.section:nth-child(odd){background:var(--paper)}
+.section:nth-child(even){background:var(--paper-dark)}
+.section-inner{max-width:860px;margin:0 auto}
+
+.section-header{
+  display:flex;align-items:flex-start;gap:20px;
+  margin-bottom:40px;padding-bottom:28px;
+  border-bottom:2px solid var(--ink);
+}
+.section-num{
+  font-family:'JetBrains Mono',monospace;font-size:2.8rem;font-weight:800;
+  line-height:1;color:rgba(18,18,18,.12);flex-shrink:0;
+  user-select:none;
+}
+.section-meta{flex:1}
+.section-tag{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.15em;
+  background:var(--ink);color:var(--paper);padding:2px 8px;
+  margin-bottom:8px;
+}
+.section-title{font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;line-height:1.1}
+.section-sub{font-size:.9rem;color:rgba(18,18,18,.55);margin-top:6px}
+
+/* ─── CONTENT ────────────────────────────────────────────── */
+.content{font-size:.95rem;line-height:1.7}
+.content h3{
+  font-size:.95rem;font-weight:700;font-family:'JetBrains Mono',monospace;
+  text-transform:uppercase;letter-spacing:.1em;
+  margin:32px 0 14px;padding-bottom:8px;
+  border-bottom:1px solid rgba(18,18,18,.15);
+}
+.content h3:first-child{margin-top:0}
+.content p{margin-bottom:14px}
+.content ul,
+.content ol{padding-left:20px;margin-bottom:14px}
+.content li{margin-bottom:6px}
+.content strong{font-weight:700}
+
+/* ─── TABLE ──────────────────────────────────────────────── */
+.table-wrap{overflow-x:auto;margin:20px 0;box-shadow:var(--hard-sm)}
+table{
+  width:100%;border-collapse:collapse;border:2px solid var(--ink);
+  font-size:.85rem;
+}
+thead tr{background:var(--ink);color:var(--paper)}
+thead th{
+  padding:10px 14px;text-align:left;
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  font-weight:600;text-transform:uppercase;letter-spacing:.1em;
+  border-right:1px solid rgba(255,255,255,.12);
+}
+thead th:last-child{border-right:none}
+tbody tr{border-bottom:1px solid var(--ink)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(18,18,18,.04)}
+tbody td{
+  padding:9px 14px;border-right:1px solid rgba(18,18,18,.1);
+  vertical-align:top;
+}
+tbody td:last-child{border-right:none}
+tbody td:first-child{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:600}
+
+/* ─── CARDS ──────────────────────────────────────────────── */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0;margin:24px 0;border:2px solid var(--ink);box-shadow:var(--hard)}
+.card{
+  padding:24px 22px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  background:var(--paper);
+}
+.card-last-row{border-bottom:none}
+.cards .card:last-child,.card:nth-child(3n){border-right:none}
+.card-tag{
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.15em;
+  background:var(--ink);color:var(--paper);
+  display:inline-block;padding:2px 7px;margin-bottom:12px;
+}
+.card h3{font-size:.9rem;margin:0 0 8px;font-family:'JetBrains Mono',monospace;text-transform:none;border:none;letter-spacing:0;padding:0}
+.card p{font-size:.82rem;color:rgba(18,18,18,.6);margin:0;line-height:1.5}
+
+/* ─── STEPS ──────────────────────────────────────────────── */
+.steps{display:flex;flex-direction:column;gap:0;margin:24px 0;border:2px solid var(--ink);box-shadow:var(--hard)}
+.step{
+  display:flex;align-items:flex-start;gap:20px;
+  padding:20px 22px;border-bottom:1px solid var(--ink);
+}
+.step:last-child{border-bottom:none}
+.step-num{
+  font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:800;
+  line-height:1;color:rgba(18,18,18,.15);flex-shrink:0;min-width:40px;
+}
+.step-body h3{font-size:.88rem;margin:0 0 6px;font-family:'Space Grotesk',monospace;text-transform:none;border:none;letter-spacing:0;padding:0;font-weight:700}
+.step-body p{font-size:.83rem;color:rgba(18,18,18,.6);margin:0;line-height:1.5}
+
+/* ─── CALLOUT ─────────────────────────────────────────────── */
+.callout{
+  border:2px solid var(--ink);padding:18px 20px;
+  margin:20px 0;box-shadow:var(--hard-sm);
+  display:flex;gap:14px;align-items:flex-start;
+  background:var(--paper);
+}
+.callout-icon{font-size:1rem;flex-shrink:0;margin-top:1px}
+.callout-body{font-size:.85rem;line-height:1.6}
+.callout-body strong{font-weight:700}
+.callout.warn{border-color:#121212;background:rgba(18,18,18,.04)}
+.callout.tip{background:var(--paper-dark)}
+
+/* ─── INLINE TAG ─────────────────────────────────────────── */
+.tag{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;
+  background:var(--ink);color:var(--paper);
+  padding:1px 7px;vertical-align:middle;
+}
+.tag.green{background:#1a4a2e}
+.tag.blue{background:#0d2a4a}
+.tag.amber{background:#4a2e0d}
+.tag.outline{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+
+/* ─── SHORTCUT ───────────────────────────────────────────── */
+kbd{
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;
+  background:var(--paper-dark);border:1.5px solid var(--ink);
+  padding:1px 6px;box-shadow:2px 2px 0 var(--ink);
+  display:inline-block;
+}
+
+/* ─── DIVIDER ────────────────────────────────────────────── */
+hr{border:none;border-top:1px solid rgba(18,18,18,.15);margin:24px 0}
+
+/* ─── FLOW DIAGRAM ───────────────────────────────────────── */
+.flow{
+  display:flex;align-items:center;gap:0;flex-wrap:wrap;
+  margin:20px 0;border:2px solid var(--ink);box-shadow:var(--hard-sm);
+  overflow:hidden;
+}
+.flow-step{
+  flex:1;min-width:120px;padding:16px 18px;
+  border-right:2px solid var(--ink);text-align:center;
+}
+.flow-step:last-child{border-right:none}
+.flow-step-num{
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.12em;color:rgba(18,18,18,.35);
+  margin-bottom:6px;
+}
+.flow-step-label{font-size:.82rem;font-weight:700;line-height:1.3}
+.flow-arrow{
+  font-size:1.2rem;color:rgba(18,18,18,.25);padding:0 8px;flex-shrink:0;
+  display:none;
+}
+
+/* ─── VAULT TREE ─────────────────────────────────────────── */
+.vault-tree{
+  font-family:'JetBrains Mono',monospace;font-size:.78rem;
+  border:2px solid var(--ink);padding:20px 22px;
+  background:var(--ink);color:var(--paper);
+  box-shadow:var(--hard-sm);line-height:1.85;
+}
+.vault-tree .dir{color:#a8d8a8}
+.vault-tree .file{color:#f2f0eb;opacity:.75}
+.vault-tree .comment{color:#888;font-style:italic}
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+footer{
+  border-top:2px solid var(--ink);padding:40px 24px;
+  background:var(--ink);color:var(--paper);
+}
+.footer-inner{
+  max-width:860px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+.footer-brand{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.15em;
+}
+.footer-links{display:flex;gap:20px}
+.footer-links a{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  color:rgba(242,240,235,.5);text-decoration:none;letter-spacing:.08em;
+}
+.footer-links a:hover{color:var(--paper);opacity:1}
+.footer-version{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  color:rgba(242,240,235,.35);letter-spacing:.1em;
+}
+
+/* ─── BACK-TO-TOP ────────────────────────────────────────── */
+.btt{
+  position:fixed;bottom:24px;right:24px;
+  width:40px;height:40px;background:var(--ink);color:var(--paper);
+  border:2px solid var(--ink);box-shadow:var(--hard-sm);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;text-decoration:none;
+  transition:transform .12s,box-shadow .12s;
+  z-index:50;
+}
+.btt:hover{transform:translateY(-2px);box-shadow:var(--hard);color:var(--paper);opacity:1}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media(max-width:600px){
+  .hero{padding:48px 20px 40px}
+  .section{padding:48px 20px}
+  .nav-links{display:none}
+  .hero-stats{gap:0}
+  .hero-stat{min-width:100px;padding:10px 14px 10px 0}
+  .flow{flex-direction:column}
+  .flow-step{border-right:none;border-bottom:2px solid var(--ink)}
+  .flow-step:last-child{border-bottom:none}
+  .cards{grid-template-columns:1fr}
+  .cards .card{border-right:none}
+  table{font-size:.78rem}
+  .section-num{font-size:2rem}
+}
+
+/* ─── PRINT ──────────────────────────────────────────────── */
+@media print{
+  body{background:white;background-image:none}
+  nav,.btt{display:none}
+  .section{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">
+      <div class="nav-logo-dot"></div>
+      Charbot OS
+    </a>
+    <div class="nav-links">
+      <a href="#chat">Chat</a>
+      <a href="#agent">Agent</a>
+      <a href="#plugins">Plugins</a>
+      <a href="#scheduler">Scheduler</a>
+      <a href="#rag">RAG</a>
+      <a href="#telegram">Telegram</a>
+      <a href="#security">Security</a>
+      <a href="#multiroom">Multiroom</a>
+    </div>
+    <div class="nav-version">v2.2</div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-tag">Dokumentacja · v2.2.0</div>
+    <h1>Instrukcja<br/><span>Obsługi.</span></h1>
+    <p class="hero-lead">
+      Twoje AI. Twoje dane. Twoje zasady.<br/>
+      <strong>Pełny przewodnik po Charbot OS</strong> — od instalacji po zaawansowane automatyzacje.
+    </p>
+    <div class="hero-ctas">
+      <a href="#install" class="btn btn-primary">→ Zacznij tutaj</a>
+      <a href="#toc" class="btn">Spis treści</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">21</div>
+        <div class="hero-stat-label">Rozdziałów</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">Lokalne AI</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">0</div>
+        <div class="hero-stat-label">Danych w chmurze</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-label">Możliwości</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TOC ════════════════════════════════════════════════ -->
+<section class="toc" id="toc">
+  <div class="toc-inner">
+    <div class="toc-label">// spis treści</div>
+    <div class="toc-grid">
+      <a href="#install" class="toc-item"><span class="toc-num">01</span><span class="toc-title">Instalacja</span></a>
+      <a href="#chat" class="toc-item"><span class="toc-num">02</span><span class="toc-title">Chat</span></a>
+      <a href="#sessions" class="toc-item"><span class="toc-num">03</span><span class="toc-title">Sesje</span></a>
+      <a href="#providers" class="toc-item"><span class="toc-num">04</span><span class="toc-title">Dostawcy AI</span></a>
+      <a href="#params" class="toc-item"><span class="toc-num">05</span><span class="toc-title">Parametry</span></a>
+      <a href="#prompt" class="toc-item"><span class="toc-num">06</span><span class="toc-title">System Prompt</span></a>
+      <a href="#persona" class="toc-item"><span class="toc-num">07</span><span class="toc-title">Persona</span></a>
+      <a href="#agent" class="toc-item"><span class="toc-num">08</span><span class="toc-title">OS File Agent</span></a>
+      <a href="#plugins" class="toc-item"><span class="toc-num">09</span><span class="toc-title">Plugins</span></a>
+      <a href="#scheduler" class="toc-item"><span class="toc-num">10</span><span class="toc-title">Scheduler</span></a>
+      <a href="#rag" class="toc-item"><span class="toc-num">11</span><span class="toc-title">Knowledge Base</span></a>
+      <a href="#docs" class="toc-item"><span class="toc-num">12</span><span class="toc-title">Dokumenty</span></a>
+      <a href="#vision" class="toc-item"><span class="toc-num">13</span><span class="toc-title">Vision / OCR</span></a>
+      <a href="#telegram" class="toc-item"><span class="toc-num">14</span><span class="toc-title">Telegram Bot</span></a>
+      <a href="#discord" class="toc-item"><span class="toc-num">15</span><span class="toc-title">Discord Bot</span></a>
+      <a href="#mobile" class="toc-item"><span class="toc-num">16</span><span class="toc-title">Mobile Portal</span></a>
+      <a href="#security" class="toc-item"><span class="toc-num">17</span><span class="toc-title">Bezpieczeństwo</span></a>
+      <a href="#env" class="toc-item"><span class="toc-num">18</span><span class="toc-title">Zmienne .env</span></a>
+      <a href="#vault" class="toc-item"><span class="toc-num">19</span><span class="toc-title">Struktura Vault</span></a>
+      <a href="#troubleshoot" class="toc-item"><span class="toc-num">20</span><span class="toc-title">Troubleshooting</span></a>
+      <a href="#multiroom" class="toc-item"><span class="toc-num">21</span><span class="toc-title">Multiroom</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 01 INSTALACJA ═══════════════════════════════════════ -->
+<section class="section" id="install">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-meta">
+        <div class="section-tag">Pierwsze kroki</div>
+        <div class="section-title">Instalacja i konfiguracja</div>
+        <div class="section-sub">Od zera do pierwszej rozmowy w 3 minutach.</div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>Windows — instalator</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div class="step-body"><h3>Pobierz instalator</h3><p>Plik <code>Charbot OS Setup 2.x.x.exe</code> z oficjalnego źródła.</p></div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-body"><h3>Uruchom i zainstaluj</h3><p>Kliknij <strong>Zainstaluj</strong> — aplikacja uruchomi się automatycznie po zakończeniu.</p></div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-body"><h3>Kreator konfiguracji</h3><p>Przy pierwszym starcie pojawia się 3-etapowy kreator — wykonaj go raz.</p></div></div>
+      </div>
+
+      <h3>Kreator konfiguracji (3 etapy)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Etap</th><th>Co robisz</th><th>Domyślnie</th></tr></thead>
+          <tbody>
+            <tr><td>01 Vault</td><td>Wybierz folder na dane aplikacji</td><td><code>~/CharbotVault</code></td></tr>
+            <tr><td>02 Provider</td><td>Wybierz dostawcę AI lub wpisz klucz API</td><td>Ollama (lokalne)</td></tr>
+            <tr><td>03 Test</td><td>Wyślij pierwszą wiadomość testową</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Tryb deweloperski (bez instalatora)</h3>
+      <pre><code>cd charbot-os-6
+npx tsx server.ts
+# Otwórz: http://127.0.0.1:3000</code></pre>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">Przed pierwszym uruchomieniem zainstaluj <strong>Ollama</strong> (<a href="https://ollama.com" target="_blank">ollama.com</a>) i pobierz model: <code>ollama pull llama3.2</code></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 CHAT ════════════════════════════════════════════ -->
+<section class="section" id="chat">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-meta">
+        <div class="section-tag">Core</div>
+        <div class="section-title">Chat — centrum dowodzenia</div>
+        <div class="section-sub">Główny interfejs rozmowy. Wszystko zaczyna się tutaj.</div>
+      </div>
+    </div>
+    <div class="content">
+
+      <h3>Wysyłanie wiadomości</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Akcja</th><th>Jak</th></tr></thead>
+          <tbody>
+            <tr><td>Wyślij wiadomość</td><td><kbd>Enter</kbd> lub przycisk Wyślij</td></tr>
+            <tr><td>Nowy wiersz bez wysyłania</td><td><kbd>Shift</kbd> + <kbd>Enter</kbd></td></tr>
+            <tr><td>Przerwij generowanie</td><td>Kliknij ✕ obok paska ładowania</td></tr>
+            <tr><td>Dodaj załącznik</td><td>Kliknij 📎 lub przeciągnij plik na okno</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Kopiowanie tekstu</h3>
+      <div class="cards">
+        <div class="card">
+          <div class="card-tag">Sposób 1</div>
+          <h3>Przycisk Copy</h3>
+          <p>Najedź na bąbelek → pojawia się przycisk <strong>Copy</strong> w prawym górnym rogu. Kliknij → zmienia się na <strong>✓ OK</strong>.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Sposób 2</div>
+          <h3>Zaznaczenie</h3>
+          <p>Zaznacz fragment tekstu myszą → prawy przycisk → <strong>Kopiuj</strong>. Skopiuje tylko zaznaczony fragment.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Sposób 3</div>
+          <h3>Context Menu</h3>
+          <p>Prawy przycisk myszy na wiadomości. Pełne menu z opcjami kopiowania, odpowiadania i usuwania.</p>
+        </div>
+      </div>
+
+      <h3>Menu kontekstowe (prawy przycisk)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Opcja</th><th>Działanie</th></tr></thead>
+          <tbody>
+            <tr><td>Kopiuj</td><td>Kopiuje zaznaczony tekst lub całą wiadomość</td></tr>
+            <tr><td>Kopiuj jako tekst</td><td>Kopiuje surowy Markdown (bez formatowania)</td></tr>
+            <tr><td>Odpowiedz</td><td>Wkleja cytat wiadomości do pola input</td></tr>
+            <tr><td>Usuń wiadomość</td><td>Trwale usuwa wiadomość z sesji</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Pasek narzędzi</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ikona</th><th>Funkcja</th></tr></thead>
+          <tbody>
+            <tr><td>🧠 Brain</td><td>Knowledge Base — zarządzanie bazą wiedzy RAG</td></tr>
+            <tr><td>📁 Folder</td><td>Dokumenty — zapisane artefakty</td></tr>
+            <tr><td>📤 Export</td><td>Eksport sesji (PDF, MD, TXT, JSON)</td></tr>
+            <tr><td>✈️ Telegram</td><td>Wyślij bieżącą sesję na Telegram</td></tr>
+            <tr><td>⚙️ Settings</td><td>Ustawienia systemowe</td></tr>
+            <tr><td>🗑 Trash</td><td>Wyczyść bieżący chat</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Obsługiwane typy załączników</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Typ pliku</th><th>Co Charbot z nim zrobi</th><th>Limit</th></tr></thead>
+          <tbody>
+            <tr><td>JPG / PNG / WEBP</td><td>Analiza obrazu (OCR, opis, dane tabelaryczne)</td><td>50 MB</td></tr>
+            <tr><td>PDF</td><td>Odczyt treści, streszczenie, Q&A</td><td>50 MB</td></tr>
+            <tr><td>TXT / MD / CSV / JSON</td><td>Analiza, edycja, pytania o dane</td><td>50 MB</td></tr>
+            <tr><td>XLSX</td><td>Odczyt wszystkich arkuszy jako tekst</td><td>50 MB</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn"><div class="callout-icon">⚠️</div><div class="callout-body"><strong>HEIC/HEIF nie jest obsługiwany.</strong> Skonwertuj zdjęcia do JPG lub PNG przed przesłaniem.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 SESJE ═══════════════════════════════════════════ -->
+<section class="section" id="sessions">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-meta">
+        <div class="section-tag">Organizacja</div>
+        <div class="section-title">Sesje</div>
+        <div class="section-sub">Każda rozmowa to osobna sesja. Limit: 50 ostatnich.</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Akcja</th><th>Jak</th></tr></thead>
+          <tbody>
+            <tr><td>Nowa sesja</td><td>Kliknij <code>+</code> w panelu po lewej</td></tr>
+            <tr><td>Zmiana nazwy</td><td>Kliknij dwukrotnie na tytuł sesji w panelu</td></tr>
+            <tr><td>Usunięcie</td><td>Ikona kosza przy sesji w panelu</td></tr>
+            <tr><td>Eksport</td><td>Ikona FileOutput w górnym pasku chatu</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Formaty eksportu</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Format</th><th>Zawartość</th></tr></thead>
+          <tbody>
+            <tr><td>Markdown</td><td>Pełna rozmowa z formatowaniem, gotowa do wklejenia</td></tr>
+            <tr><td>PDF</td><td>Gotowy do druku lub wysyłki e-mail</td></tr>
+            <tr><td>TXT</td><td>Surowy tekst bez znaczników</td></tr>
+            <tr><td>JSON</td><td>Dane maszynowe — do dalszego przetwarzania</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip"><div class="callout-icon">💡</div><div class="callout-body">Sesje są automatycznie synchronizowane z serwerem. Możesz otworzyć Charbot w nowej karcie i kontynuować tę samą rozmowę.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 DOSTAWCY AI ════════════════════════════════════ -->
+<section class="section" id="providers">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-meta">
+        <div class="section-tag">Konfiguracja</div>
+        <div class="section-title">Dostawcy AI</div>
+        <div class="section-sub">Settings → Provider. Ollama (lokalnie) lub chmura z kluczem API.</div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>Ollama — zalecane (100% lokalne)</h3>
+      <pre><code># Pobierz modele do chatu:
+ollama pull llama3.2
+ollama pull qwen2.5:7b
+
+# Do RAG (Knowledge Base) — wymagany:
+ollama pull nomic-embed-text
+
+# Do analizy obrazów (Vision):
+ollama pull llava</code></pre>
+      <p>Endpoint: <code>http://localhost:11434</code> — ustaw w Settings → Provider → Ollama.</p>
+
+      <h3>Dostawcy chmurowi</h3>
+      <div class="callout warn"><div class="callout-icon">🔐</div><div class="callout-body"><strong>Klucze API</strong> są przechowywane wyłącznie w <code>CharbotVault/ai-keys.json</code> na Twoim dysku. Nigdy nie trafiają do przeglądarki ani localStorage.</div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Provider</th><th>Przykładowy model</th><th>Klucz API</th></tr></thead>
+          <tbody>
+            <tr><td>OpenAI</td><td><code>gpt-4o</code></td><td><code>sk-...</code></td></tr>
+            <tr><td>Google Gemini</td><td><code>gemini-2.5-flash-latest</code></td><td><code>AIza...</code></td></tr>
+            <tr><td>Anthropic</td><td><code>claude-sonnet-4-6</code></td><td><code>sk-ant-...</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 PARAMETRY ══════════════════════════════════════ -->
+<section class="section" id="params">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div class="section-meta">
+        <div class="section-tag">Model</div>
+        <div class="section-title">Parametry modelu</div>
+        <div class="section-sub">Settings → Parameters</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Parametr</th><th>Opis</th><th>Zakres</th></tr></thead>
+          <tbody>
+            <tr><td>Temperature</td><td>Kreatywność — wyżej = bardziej losowo, niżej = bardziej deterministycznie</td><td>0.0 – 1.5</td></tr>
+            <tr><td>Top P</td><td>Ogranicza pulę tokenów do rozważenia. Niżej = bardziej przewidywalnie</td><td>0.0 – 1.0</td></tr>
+            <tr><td>Max Tokens</td><td>Maksymalna długość odpowiedzi modelu</td><td>512 – 8192</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 06 SYSTEM PROMPT ══════════════════════════════════ -->
+<section class="section" id="prompt">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div class="section-meta">
+        <div class="section-tag">Personalizacja</div>
+        <div class="section-title">System Prompt</div>
+        <div class="section-sub">Stała instrukcja wysyłana przed każdą rozmową. Settings → System Prompt.</div>
+      </div>
+    </div>
+    <div class="content">
+      <p>Wpisz dowolną instrukcję — model będzie jej przestrzegał w każdej sesji.</p>
+      <h3>Przykłady</h3>
+      <pre><code>Odpowiadaj zawsze po polsku. Bądź zwięzły i konkretny.
+
+---
+
+Jesteś asystentem prawnym. Cytuj przepisy z numerami artykułów.
+Zawsze zaznaczaj, że to informacja ogólna, nie porada prawna.
+
+---
+
+Mów do mnie per "szefie". Używaj punktorów.
+Nie pytaj o zgodę — działaj od razu.</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 07 PERSONA ════════════════════════════════════════ -->
+<section class="section" id="persona">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <div class="section-meta">
+        <div class="section-tag">Personalizacja</div>
+        <div class="section-title">Persona</div>
+        <div class="section-sub">Settings → Persona. Zmień tożsamość i styl asystenta.</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pole</th><th>Opis</th></tr></thead>
+          <tbody>
+            <tr><td>Nazwa</td><td>Jak ma się przedstawiać — np. <strong>ARIA</strong>, <strong>MAX</strong>, <strong>Doradca</strong></td></tr>
+            <tr><td>Poziom ograniczeń</td><td>Standard / Minimal (bez disclaimerów) / Brak cenzury*</td></tr>
+            <tr><td>Zachowanie</td><td>Dowolny opis stylu, np. „mów zwięźle, nie pytaj o zgodę, używaj list"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn"><div class="callout-icon">⚠️</div><div class="callout-body">Tryb <strong>Brak cenzury</strong> wymaga zmiennej środowiskowej <code>CHARBOT_UNCENSORED=true</code> w pliku <code>.env</code>.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 08 OS FILE AGENT ══════════════════════════════════ -->
+<section class="section" id="agent">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <div class="section-meta">
+        <div class="section-tag">Automatyzacja</div>
+        <div class="section-title">OS File Agent</div>
+        <div class="section-sub">AI czyta i zapisuje pliki na Twoim dysku. Settings → OS Agent.</div>
+      </div>
+    </div>
+    <div class="content">
+      <p>Wskaż dozwolone katalogi — agent nie wyjdzie poza nie. Poza tymi ścieżkami filesystem jest zablokowany.</p>
+      <h3>Dostępne narzędzia</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Narzędzie</th><th>Co robi</th></tr></thead>
+          <tbody>
+            <tr><td>list_dir</td><td>Listuje pliki i foldery w podanej ścieżce</td></tr>
+            <tr><td>search_files</td><td>Szuka plików po nazwie — max głębokość 4, max 50 wyników</td></tr>
+            <tr><td>read_file</td><td>Czyta plik tekstowy, CSV lub arkusz XLSX (max 500 KB)</td></tr>
+            <tr><td>write_file</td><td>Tworzy lub nadpisuje plik</td></tr>
+            <tr><td>append_csv</td><td>Dopisuje wiersz do pliku CSV (tworzy z nagłówkami jeśli nie istnieje)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Jak używać</h3>
+      <p>Pisz naturalnie — agent dobiera narzędzia sam:</p>
+      <pre><code>Sprawdź co mam w ~/Downloads i posortuj pliki według rozmiaru.
+Zapisz wynik do ~/Desktop/raport.txt
+
+---
+
+Otwórz ~/Dokumenty/wydatki.csv i policz sumę z kolumny "kwota".
+Dopisz nowy wiersz z dzisiejszą datą i kwotą 250 zł.</code></pre>
+      <p>Wyniki wywołań narzędzi widoczne są jako bąbelki <span class="tag">TOOL CALL</span> w czacie.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 09 PLUGINS ════════════════════════════════════════ -->
+<section class="section" id="plugins">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">09</div>
+      <div class="section-meta">
+        <div class="section-tag">Rozszerzenia</div>
+        <div class="section-title">Plugins</div>
+        <div class="section-sub">Własne narzędzia dla agenta. Settings → Plugins.</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="cards">
+        <div class="card">
+          <div class="card-tag blue">Typ A</div>
+          <h3>Plik .mjs</h3>
+          <p>Własny kod JavaScript. Pełna kontrola — wywołania API, przetwarzanie danych, dowolna logika.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag green">Typ B</div>
+          <h3>Webhook Tool</h3>
+          <p>Bez kodowania. Podaj URL, metodę i parametry — Charbot wywołuje endpoint za Ciebie.</p>
+        </div>
+      </div>
+
+      <h3>Typ A — plik .mjs</h3>
+      <p>Umieść plik w <code>CharbotVault/plugins/</code> i kliknij <strong>Reload</strong>:</p>
+      <pre><code>// CharbotVault/plugins/kurs_btc.mjs
+export const name = 'kurs_btc';
+export const description = 'Pobiera aktualny kurs BTC w PLN.';
+export const parameters = {};
+
+export async function execute(_args, _ctx) {
+  const r = await fetch(
+    'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=pln'
+  );
+  const d = await r.json();
+  return `BTC: ${d.bitcoin.pln} PLN`;
+}</code></pre>
+
+      <h3>Typ B — webhook tool (Settings → Plugins)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pole</th><th>Przykład</th></tr></thead>
+          <tbody>
+            <tr><td>Nazwa</td><td><code>pogoda</code></td></tr>
+            <tr><td>Opis</td><td><code>Pobiera aktualną pogodę dla podanego miasta.</code></td></tr>
+            <tr><td>URL template</td><td><code>https://wttr.in/{miasto}?format=3</code></td></tr>
+            <tr><td>Metoda</td><td><code>GET</code></td></tr>
+            <tr><td>Parametry</td><td><code>miasto</code> → nazwa miasta</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip"><div class="callout-icon">💡</div><div class="callout-body">Wtyczki działają w pętli agenta — możesz łączyć je z narzędziami OS File Agent w jednej rozmowie.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10 SCHEDULER ══════════════════════════════════════ -->
+<section class="section" id="scheduler">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">10</div>
+      <div class="section-meta">
+        <div class="section-tag">Automatyzacja</div>
+        <div class="section-title">Scheduler</div>
+        <div class="section-sub">Zadania AI działające automatycznie wg harmonogramu. Settings → Scheduler.</div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>Typy zadań</h3>
+      <div class="cards">
+        <div class="card">
+          <div class="card-tag">Prompt → Telegram</div>
+          <h3>Automatyczny raport</h3>
+          <p>Wysyła prompt do Ollamy, odpowiedź trafia na Twój Telegram o wyznaczonej godzinie.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Export sesji</div>
+          <h3>Backup rozmów</h3>
+          <p>Eksportuje wybraną sesję i wysyła link lub plik na Telegram.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">OS Agent</div>
+          <h3>Automatyzacja plików</h3>
+          <p>Wykonuje polecenie agenta (backup, raport z dysku) → wynik na Telegram.</p>
+        </div>
+      </div>
+
+      <h3>Dodawanie zadania</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pole</th><th>Opis</th></tr></thead>
+          <tbody>
+            <tr><td>Nazwa</td><td>Dowolna etykieta identyfikująca zadanie</td></tr>
+            <tr><td>Typ</td><td>Jeden z 3 typów powyżej</td></tr>
+            <tr><td>Godzina</td><td>Format HH:MM — np. <code>09:00</code></td></tr>
+            <tr><td>Dni tygodnia</td><td>Dowolna kombinacja Pon–Nd</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Zarządzanie</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Akcja</th><th>Jak</th></tr></thead>
+          <tbody>
+            <tr><td>Włącz / Wyłącz</td><td>Przełącznik przy zadaniu (zielony = aktywne)</td></tr>
+            <tr><td>Uruchom teraz</td><td>Przycisk ▶ — natychmiastowe wykonanie bez czekania</td></tr>
+            <tr><td>Podgląd wyniku</td><td>Kliknij ▼ przy zadaniu → <code>lastResult</code> + data</td></tr>
+            <tr><td>Usuń</td><td>Ikona kosza przy zadaniu</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip"><div class="callout-icon">💡</div><div class="callout-body">Scheduler działa w tle — Charbot nie musi być widoczny na ekranie. Wystarczy że serwer jest uruchomiony (<code>npx tsx server.ts</code>).</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 11 KNOWLEDGE BASE ═════════════════════════════════ -->
+<section class="section" id="rag">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">11</div>
+      <div class="section-meta">
+        <div class="section-tag">AI Memory</div>
+        <div class="section-title">Knowledge Base — RAG</div>
+        <div class="section-sub">Ikona Brain w chacie. Model "pamięta" treść starych sesji i plików.</div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>Jak działa</h3>
+      <div class="flow">
+        <div class="flow-step"><div class="flow-step-num">01 — Index</div><div class="flow-step-label">Sesje i pliki zamieniane na embeddingi</div></div>
+        <div class="flow-step"><div class="flow-step-num">02 — Search</div><div class="flow-step-label">Każde pytanie szuka podobnych fragmentów</div></div>
+        <div class="flow-step"><div class="flow-step-num">03 — Context</div><div class="flow-step-label">Znalezione fragmenty trafiają do promptu</div></div>
+        <div class="flow-step"><div class="flow-step-num">04 — Answer</div><div class="flow-step-label">Model odpowiada z kontekstem z przeszłości</div></div>
+      </div>
+
+      <h3>Włączenie RAG</h3>
+      <p>Settings → Vision/RAG → włącz <strong>RAG</strong> → wybierz model embeddingów.</p>
+      <pre><code># Wymagany model embeddingów:
+ollama pull nomic-embed-text</code></pre>
+
+      <h3>Panel Knowledge Base</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Akcja</th><th>Efekt</th></tr></thead>
+          <tbody>
+            <tr><td>Indeksuj wszystkie sesje</td><td>Tworzy embeddingi dla całej historii rozmów — widać progress</td></tr>
+            <tr><td>🗑 przy sesji</td><td>Usuwa embeddingi tylko wybranej sesji</td></tr>
+            <tr><td>Wyczyść cały indeks</td><td>Usuwa wszystkie embeddingi (wymaga potwierdzenia)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Statystyki w panelu</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Metryka</th><th>Opis</th></tr></thead>
+          <tbody>
+            <tr><td>Chunks</td><td>Liczba zaindeksowanych fragmentów tekstu</td></tr>
+            <tr><td>Sesje</td><td>Ile sesji ma swoje embeddingi</td></tr>
+            <tr><td>Model</td><td>Aktywny model embeddingów</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 12 DOKUMENTY ══════════════════════════════════════ -->
+<section class="section" id="docs">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">12</div>
+      <div class="section-meta">
+        <div class="section-tag">Artefakty</div>
+        <div class="section-title">Dokumenty</div>
+        <div class="section-sub">Pliki generowane przez AI — widoczne jako karty w czacie.</div>
+      </div>
+    </div>
+    <div class="content">
+      <p>Gdy model wygeneruje plik, pojawia się jako <span class="tag">ArtifactCard</span> — z podglądem i przyciskiem Zapisz.</p>
+      <h3>Obsługiwane formaty artefaktów</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px">
+        <span class="tag outline">TXT</span>
+        <span class="tag outline">MD</span>
+        <span class="tag outline">HTML</span>
+        <span class="tag outline">JSON</span>
+        <span class="tag outline">CSV</span>
+        <span class="tag outline">PDF</span>
+      </div>
+      <p>Zapisane pliki trafiają do <code>CharbotVault/documents/</code>. Pobierz lub usuń je z panelu <strong>Dokumenty</strong> (ikona FolderOpen w chacie).</p>
+      <h3>Jak wywołać</h3>
+      <pre><code>Napisz raport z dzisiejszego spotkania i zapisz jako MD.
+
+---
+
+Stwórz arkusz CSV z kolumnami: data, produkt, cena, ilość.</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 13 VISION ═════════════════════════════════════════ -->
+<section class="section" id="vision">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">13</div>
+      <div class="section-meta">
+        <div class="section-tag">AI Vision</div>
+        <div class="section-title">Vision / Analiza obrazów</div>
+        <div class="section-sub">Wymagany model z obsługą wizji: llava, qwen2.5vl, moondream.</div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>Presety analizy (po załączeniu obrazu)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Preset</th><th>Co robi</th></tr></thead>
+          <tbody>
+            <tr><td>Odczyt tekstu (OCR)</td><td>Transkrybuje wszystkie widoczne teksty z zachowaniem formatowania</td></tr>
+            <tr><td>Opis obrazu</td><td>3–5 zdań opisu sceny, kolorów, szczegółów</td></tr>
+            <tr><td>Dane tabelaryczne</td><td>Wyciąga dane do tabeli Markdown</td></tr>
+            <tr><td>Diagnoza kodu</td><td>Analizuje screenshoty błędów i kodu</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code># Instalacja modelu vision:
+ollama pull llava
+# lub
+ollama pull qwen2.5vl</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 14 TELEGRAM ═══════════════════════════════════════ -->
+<section class="section" id="telegram">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">14</div>
+      <div class="section-meta">
+        <div class="section-tag">Integracja</div>
+        <div class="section-title">Telegram Bot</div>
+        <div class="section-sub">Czatuj z Charbotem z dowolnego miejsca. Settings → Telegram.</div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>Konfiguracja (jednorazowo)</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div class="step-body"><h3>Utwórz bota</h3><p>Napisz do <a href="https://t.me/BotFather" target="_blank">@BotFather</a> na Telegramie → komenda <code>/newbot</code> → skopiuj token.</p></div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-body"><h3>Wklej token</h3><p>Settings → Telegram → wklej token → zapisz.</p></div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-body"><h3>Zarejestruj się</h3><p>Napisz <code>/register</code> do swojego bota → nadajesz sobie dostęp (whitelist).</p></div></div>
+      </div>
+
+      <h3>Komendy bota</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Komenda</th><th>Działanie</th></tr></thead>
+          <tbody>
+            <tr><td>/chat &lt;msg&gt;</td><td>Jednorazowa odpowiedź AI</td></tr>
+            <tr><td>/ask &lt;msg&gt;</td><td>Konwersacja z historią (wieloetapowa)</td></tr>
+            <tr><td>/reset</td><td>Wyczyść historię bota</td></tr>
+            <tr><td>/status</td><td>Status systemu (provider, model, uptime)</td></tr>
+            <tr><td>/last</td><td>Ostatnie 5 sesji z listy</td></tr>
+            <tr><td>/search &lt;fraza&gt;</td><td>Szukaj w sesjach</td></tr>
+            <tr><td>/export &lt;id|last&gt;</td><td>Pobierz transkrypt sesji jako plik</td></tr>
+            <tr><td>/photo last</td><td>Ostatnie przesłane zdjęcie z Vault</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn"><div class="callout-icon">🔐</div><div class="callout-body">Tylko zarejestrowani użytkownicy mają dostęp. Pusta whitelist = brak dostępu dla kogokolwiek.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 15 DISCORD ════════════════════════════════════════ -->
+<section class="section" id="discord">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">15</div>
+      <div class="section-meta">
+        <div class="section-tag">Integracja</div>
+        <div class="section-title">Discord Bot</div>
+        <div class="section-sub">Wymaga zmiennej DISCORD_BOT_TOKEN w pliku .env.</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Komenda</th><th>Działanie</th></tr></thead>
+          <tbody>
+            <tr><td>!cb &lt;pytanie&gt;</td><td>Zapytaj AI — odpowiedź w kanale</td></tr>
+            <tr><td>!cb export last</td><td>Eksportuj ostatnią sesję jako plik</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code># .env
+DISCORD_BOT_TOKEN=twój_token_z_discord_developer_portal</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 16 MOBILE ═════════════════════════════════════════ -->
+<section class="section" id="mobile">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">16</div>
+      <div class="section-meta">
+        <div class="section-tag">Mobilność</div>
+        <div class="section-title">Mobile Portal</div>
+        <div class="section-sub">Dostęp do sesji z telefonu przez Wi-Fi lub USB-C.</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div class="step-body"><h3>Eksportuj sesję</h3><p>Kliknij <strong>Export to Phone</strong> przy wybranej sesji w panelu.</p></div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-body"><h3>Otwórz na telefonie</h3><p>W tej samej sieci Wi-Fi: <code>http://127.0.0.1:3000/mobile</code></p></div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-body"><h3>Przeglądaj i pobieraj</h3><p>Pełna sesja w formacie HTML, gotowa do czytania i pobierania plików.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 17 SECURITY ═══════════════════════════════════════ -->
+<section class="section" id="security">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">17</div>
+      <div class="section-meta">
+        <div class="section-tag">Privacy First</div>
+        <div class="section-title">Bezpieczeństwo</div>
+        <div class="section-sub">Charbot OS projektowany jest z myślą o prywatności od podstaw.</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="cards">
+        <div class="card">
+          <div class="card-tag">P0</div>
+          <h3>Lokalny bind</h3>
+          <p>Serwer nasłuchuje wyłącznie na <code>127.0.0.1</code> — niedostępny z zewnątrz sieci.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">P0</div>
+          <h3>APP_SECRET</h3>
+          <p>Każde żądanie API wymaga tokenu generowanego przy starcie. Brak tokenu = 401.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">P0</div>
+          <h3>Vault Sandbox</h3>
+          <p>OS Agent działa tylko w katalogach, które sam wskazałeś. Zero dostępu poza nimi.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">P0</div>
+          <h3>Klucze w Vault</h3>
+          <p>Klucze API w <code>CharbotVault/ai-keys.json</code>. Nigdy w przeglądarce, nigdy w localStorage.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">P1</div>
+          <h3>Offline Mode</h3>
+          <p><code>CHARBOT_OFFLINE=true</code> blokuje wszystkich dostawców chmurowych. Tylko Ollama.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">P1</div>
+          <h3>Rate Limiting</h3>
+          <p>60 req/min na <code>/api</code>, 40 req/min na endpointy AI. Ochrona przed atakami.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 18 ENV ════════════════════════════════════════════ -->
+<section class="section" id="env">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">18</div>
+      <div class="section-meta">
+        <div class="section-tag">Konfiguracja</div>
+        <div class="section-title">Zmienne środowiskowe</div>
+        <div class="section-sub">Utwórz plik .env w katalogu aplikacji.</div>
+      </div>
+    </div>
+    <div class="content">
+      <pre><code># Lokalizacja Vault (domyślnie ~/CharbotVault)
+CHARBOT_VAULT_DIR=D:/MójVault
+
+# Tryb offline — blokuje wszystkich dostawców chmurowych
+CHARBOT_OFFLINE=true
+
+# Zezwól na wykonywanie poleceń shell przez AI
+ENABLE_EXEC=true
+
+# Zezwól na fine-tuning modeli Ollama
+ENABLE_FINE_TUNE=true
+
+# Tryb uncensored (brak cenzury w AI)
+CHARBOT_UNCENSORED=true
+
+# Bind na interfejsie sieciowym (domyślnie 127.0.0.1)
+# Zmień na 0.0.0.0 aby udostępnić w sieci LAN
+BIND_HOST=0.0.0.0
+
+# Własny token autoryzacji (generowany automatycznie jeśli brak)
+APP_SECRET=mój_tajny_token
+
+# Tokeny botów
+DISCORD_BOT_TOKEN=twój_token</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 19 VAULT ══════════════════════════════════════════ -->
+<section class="section" id="vault">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">19</div>
+      <div class="section-meta">
+        <div class="section-tag">Struktura</div>
+        <div class="section-title">Struktura Vault</div>
+        <div class="section-sub">Wszystkie dane aplikacji w jednym folderze — łatwy backup.</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="vault-tree">
+<span class="dir">CharbotVault/</span>
+├── <span class="file">charbot.db</span>           <span class="comment">← baza SQLite (sesje, scheduler, RAG)</span>
+├── <span class="file">ai-keys.json</span>         <span class="comment">← klucze API (tylko lokalnie)</span>
+├── <span class="file">app-secret.txt</span>       <span class="comment">← token autoryzacji (autogenerowany)</span>
+├── <span class="file">telegram-config.json</span> <span class="comment">← konfiguracja bota Telegram</span>
+├── <span class="file">plugins-webhook.json</span> <span class="comment">← webhook tools</span>
+├── <span class="dir">uploads/</span>             <span class="comment">← przesłane pliki (per sesja)</span>
+├── <span class="dir">documents/</span>           <span class="comment">← zapisane artefakty AI</span>
+├── <span class="dir">plugins/</span>             <span class="comment">← wtyczki .mjs</span>
+├── <span class="dir">mobile/</span>              <span class="comment">← portal mobilny (HTML)</span>
+└── <span class="dir">logs/</span>                <span class="comment">← logi serwera (rotowane co 5 MB)</span>
+      </div>
+      <div class="callout tip" style="margin-top:20px"><div class="callout-icon">💡</div><div class="callout-body">Zrób backup całego folderu <code>CharbotVault/</code> — to wszystko czego potrzebujesz. Baza danych, klucze, pliki — wszystko w jednym miejscu.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 20 TROUBLESHOOTING ════════════════════════════════ -->
+<section class="section" id="troubleshoot">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">20</div>
+      <div class="section-meta">
+        <div class="section-tag">Support</div>
+        <div class="section-title">Rozwiązywanie problemów</div>
+        <div class="section-sub">Najczęstsze problemy i ich rozwiązania.</div>
+      </div>
+    </div>
+    <div class="content">
+
+      <h3>Model nie odpowiada</h3>
+      <pre><code>✓ Sprawdź czy Ollama działa:
+  ollama list
+
+✓ Zweryfikuj endpoint w Settings → Provider:
+  http://localhost:11434
+
+✓ Pobierz model jeśli brak:
+  ollama pull llama3.2</code></pre>
+
+      <h3>RAG nie działa</h3>
+      <pre><code>✓ Włącz RAG: Settings → Vision/RAG → toggle ON
+✓ Pobierz model embeddingów:
+  ollama pull nomic-embed-text
+✓ Zaindeksuj sesje:
+  Kliknij Brain → "Indeksuj wszystkie sesje"</code></pre>
+
+      <h3>Wtyczka nie pojawia się w liście</h3>
+      <pre><code>✓ Plik musi mieć rozszerzenie .mjs (nie .js)
+✓ Musi eksportować: name, description, parameters, execute
+✓ Kliknij "Reload" w Settings → Plugins</code></pre>
+
+      <h3>Scheduler nie wykonuje zadań</h3>
+      <pre><code>✓ Sprawdź czy zadanie jest włączone (zielony przełącznik)
+✓ Użyj ▶ "Run now" — test natychmiastowy
+✓ Dla Prompt → Telegram: skonfiguruj bota (rozdział 14)
+✓ Sprawdź logi: CharbotVault/logs/scheduler.log</code></pre>
+
+      <h3>Port 3000 zajęty</h3>
+      <pre><code># Windows PowerShell:
+netstat -ano | findstr :3000
+Stop-Process -Id &lt;PID&gt; -Force</code></pre>
+
+      <h3>Installer — błąd better-sqlite3</h3>
+      <pre><code># Przebuduj natywny moduł:
+cd charbot-os-6
+npm rebuild better-sqlite3</code></pre>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 21 MULTIROOM ════════════════════════════════════════ -->
+<section class="section" id="multiroom">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">21</div>
+      <div class="section-meta">
+        <div class="section-tag">Nowość · v2.2</div>
+        <div class="section-title">Multiroom — Wspólna praca z AI</div>
+        <div class="section-sub">Wiele osób, wiele modeli, jeden pokój. Real-time.</div>
+      </div>
+    </div>
+    <div class="content">
+
+      <p>Multiroom pozwala kilku użytkownikom pracować jednocześnie w tym samym czacie — każdy ze swoim modelem AI. Wiadomości i odpowiedzi AI są synchronizowane w czasie rzeczywistym przez WebSocket. Idealne do code review, burzy mózgów i porównywania odpowiedzi różnych modeli.</p>
+
+      <h3>Jak to działa technicznie</h3>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-step-num">01</div>
+          <div class="flow-step-label">Twórca otwiera pokój</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">02</div>
+          <div class="flow-step-label">Wysyła link zaproszenia</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">03</div>
+          <div class="flow-step-label">Każdy dołącza z username + model</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">04</div>
+          <div class="flow-step-label">WebSocket: tokeny AI w czasie rzeczywistym</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">05</div>
+          <div class="flow-step-label">Historia zapisana w SQLite</div>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">🔌</div>
+        <div class="callout-body">Każdy uczestnik łączy się przez WebSocket na <code>/ws/room/:id</code>. Serwer streamuje tokeny AI (<code>ai_token</code>) do wszystkich jednocześnie — każdy widzi odpowiedź modelu dosłownie litera po literze.</div>
+      </div>
+
+      <h3>Cztery tryby AI</h3>
+      <div class="cards">
+        <div class="card">
+          <div class="card-tag">Tryb 1</div>
+          <h3>Własny model</h3>
+          <p>Każdy uczestnik ma przypisany model. AI odpowiada wyłącznie na wiadomości swojego użytkownika. Naturalne, konwersacyjne środowisko.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Tryb 2</div>
+          <h3>Panel AI</h3>
+          <p>Każda wiadomość → wszystkie modele w pokoju odpowiadają kolejno. Idealne do porównywania odpowiedzi: Llama3 vs Mistral vs Gemma na to samo pytanie.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Tryb 3</div>
+          <h3>@mention</h3>
+          <p>Tylko wywołany model odpowiada. Składnia: <code>@llama3 napisz mi testy jednostkowe</code>. Pełna kontrola nad tym, który model reaguje.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Tryb 4</div>
+          <h3>Debata</h3>
+          <p>Dwa modele dyskutują z przeciwnych stron tezy. Model PRO argumentuje za, model CON — przeciw. Ty moderujesz, podając kolejne tezy.</p>
+        </div>
+      </div>
+
+      <h3>Krok po kroku — tworzenie pokoju</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h3>Otwórz panel boczny → tab "Pokoje"</h3>
+            <p>W lewym panelu sesji kliknij zakładkę <strong>Pokoje</strong> (ikona ludzi). Widoczna jest lista aktywnych pokojów.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h3>Kliknij "Nowy pokój"</h3>
+            <p>Wpisz nazwę, wybierz tryb AI (własny model / panel / @mention / debata). Opcjonalnie ustaw hasło i instrukcje debaty.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <h3>Dołącz — wpisz username i model</h3>
+            <p>Podaj swoją nazwę widoczną dla innych (np. <code>Mateusz</code>) oraz model Ollama, który chcesz używać (np. <code>llama3.2</code>).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <h3>Udostępnij link</h3>
+            <p>Przycisk <strong>"Kopiuj link"</strong> w nagłówku pokoju kopiuje URL do schowka. Wyślij go do innych uczestników — otwierają ten sam Charbot OS w sieci lokalnej (<code>http://IP:3000</code>).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <h3>Pisz — AI odpowiada wszystkim jednocześnie</h3>
+            <p>Wiadomości i tokeny AI są widoczne u wszystkich w czasie rzeczywistym. Wskaźnik połączenia (zielony/żółty/czerwony) pokazuje stan WebSocket.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Interfejs pokoju</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Element</th><th>Co robi</th></tr></thead>
+          <tbody>
+            <tr><td>Nagłówek</td><td>Nazwa pokoju, badge trybu, liczba online, wskaźnik WS, przyciski Kopiuj link / Opuść</td></tr>
+            <tr><td>Lista wiadomości</td><td>Kolorowe awatary uczestników, badge modelu AI, streaming tokenów z animowanym kursorem</td></tr>
+            <tr><td>Sidebar uczestników</td><td>Zielona/szara kropka = online/offline, username, przypisany model, lista aktywnych modeli AI</td></tr>
+            <tr><td>Pole wpisywania</td><td>Enter = wyślij, Shift+Enter = nowa linia. Informacja o aktywnym modelu pod polem.</td></tr>
+            <tr><td>Wskaźnik pisania AI</td><td>Animowane kropki gdy model generuje, potem strumieniowanie tekstu litera po literze</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Tryb @mention — składnia</h3>
+      <pre><code># Wywołaj konkretny model (tryb mention):
+@llama3 porównaj REST vs GraphQL
+
+# Wystarczy fragment nazwy modelu:
+@mistral napisz mi funkcję w Pythonie
+
+# Bez @ → brak odpowiedzi AI (tylko ludzka rozmowa)</code></pre>
+
+      <h3>Tryb debata — przykład</h3>
+      <pre><code># Konfiguracja przy tworzeniu pokoju:
+Model PRO instrukcja: "Argumentuj ZA tezą używając danych i faktów"
+Model CON instrukcja: "Argumentuj PRZECIW tezie, szukaj słabych punktów"
+
+# Wiadomość użytkownika:
+"AI zastąpi programistów w ciągu 10 lat"
+
+# Wynik:
+🤖 llama3  → argumenty ZA
+🤖 mistral → argumenty PRZECIW</code></pre>
+
+      <h3>Dostęp z innych urządzeń w sieci</h3>
+      <div class="callout warn">
+        <div class="callout-icon">🌐</div>
+        <div class="callout-body">Domyślnie serwer nasłuchuje na <code>127.0.0.1</code> (tylko lokalnie). Żeby inni w sieci mogli dołączyć do pokoju, uruchom serwer z: <code>BIND_HOST=0.0.0.0 npx tsx server.ts</code> — wtedy link <code>http://TWOJE_IP:3000</code> będzie dostępny dla wszystkich w tej samej sieci Wi-Fi.</div>
+      </div>
+
+      <h3>Czego NIE synchronizuje Multiroom</h3>
+      <div class="callout">
+        <div class="callout-icon">ℹ️</div>
+        <div class="callout-body">Historia pokoju jest oddzielna od prywatnych sesji czatu. Multiroom nie korzysta z RAG, OS File Agent ani Schedulera — to dedykowane środowisko do współpracy, przechowujące własne wiadomości w tabeli <code>room_messages</code>.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Charbot OS — v2.2</div>
+    <div class="footer-links">
+      <a href="https://www.charbot.org" target="_blank">charbot.org</a>
+      <a href="#top">↑ Góra</a>
+    </div>
+    <div class="footer-version">Twoje AI. Twoje dane. Twoje zasady.</div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<a href="#top" class="btt" title="Wróć na górę">↑</a>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-electron/
+dist-server/
+dist-installer/
+release/
+out/
+*.db
+.env
+Vault/
