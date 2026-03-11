@@ -1,10 +1,23 @@
 <div align="center">
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+
+**Part of the [Charbot](https://charbot.org) ecosystem — local-first AI tools built for real work.**
+
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
+![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Electron](https://img.shields.io/badge/Electron-47848F?style=flat&logo=electron&logoColor=white)
+![Ollama](https://img.shields.io/badge/Ollama-000000?style=flat&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)
 </div>
 
 # Charbot OS
 
-A brutalist-aesthetic AI workspace. Multi-provider chat (Ollama, OpenAI, Google, Anthropic), automation flows, session management, file attachments, mobile export, and remote control via Telegram/Discord.
+A local-first AI workspace for teams and individuals who care about data privacy. Multi-provider chat (Ollama, OpenAI, Google, Anthropic), automation flows, session management, file attachments, Charbot Buddy companion, mobile export, and remote control via Telegram/Discord.
+
+Runs fully offline with Ollama — no cloud required, no subscription, no data leaving your machine.
+
+---
 
 ## Quick Start
 
@@ -60,6 +73,14 @@ CharbotVault/
 CHARBOT_VAULT_DIR=/Volumes/MySSD/CharbotVault
 ```
 The directory is created automatically on first run.
+
+---
+
+## Charbot Buddy
+
+Charbot OS includes a floating 3D AI companion window that lives on your desktop — always on top, proactive, and context-aware. Buddy reacts to what you're working on, sends scheduled motivational messages, and responds to voice or text input.
+
+The Buddy window runs separately from the main chat interface and communicates via IPC.
 
 ---
 
@@ -140,6 +161,30 @@ Workflows are saved to `localStorage` and can be named and loaded.
 
 ---
 
+## Raspberry Pi 5 Deployment
+
+Run Charbot OS as a headless server on a Raspberry Pi 5 (or any Linux machine), accessible over your local network or remotely via ngrok.
+
+```bash
+# On your dev machine — pack everything for RPi
+npm run pack:ssd-rpi
+
+# On the RPi — first-time setup
+bash setup-rpi.sh
+
+# Start / stop
+bash start-rpi.sh
+bash stop-rpi.sh
+
+# Or run as a systemd service
+sudo systemctl enable charbot-os
+sudo systemctl start charbot-os
+```
+
+Remote access URL (ngrok): `bash get-url.sh`
+
+---
+
 ## Architecture
 
 ```
@@ -156,5 +201,24 @@ charbot-os/
 │   ├── mobile.ts         # Static HTML portal generator
 │   ├── telegram.ts       # Telegram bot (telegraf)
 │   └── discord.ts        # Discord bot (discord.js)
+├── electron/
+│   └── main.ts           # Electron entry, Buddy window
+├── CharBotDrive-RPi/     # RPi 5 deployment scripts
 └── server.ts             # Express server + Vite dev middleware
 ```
+
+---
+
+## Charbot Ecosystem
+
+| Project | Description |
+|---------|-------------|
+| **Charbot OS** | This repo — enterprise AI platform |
+| **DeskBuddy** | Proactive desktop AI companion with voice |
+| **LocalMind** | Private ChatGPT alternative, no cloud |
+
+More at **[charbot.org](https://charbot.org)**
+
+---
+
+*Built by [Mateusz Uraz](https://github.com/Mateuszuraz) · Poland · Local-first AI*
